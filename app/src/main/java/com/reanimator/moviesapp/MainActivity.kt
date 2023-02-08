@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.reanimator.moviesapp.navigation.SetupNavHost
 import com.reanimator.moviesapp.ui.theme.MoviesAppTheme
@@ -21,7 +22,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            SetupNavHost(navController = navController)
+            val viewModel = hiltViewModel<MainViewModel>()
+            SetupNavHost(navController = navController, viewModel = viewModel)
         }
     }
 }

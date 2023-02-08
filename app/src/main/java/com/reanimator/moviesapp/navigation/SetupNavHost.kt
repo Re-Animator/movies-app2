@@ -1,9 +1,12 @@
 package com.reanimator.moviesapp.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.reanimator.moviesapp.MainViewModel
+import com.reanimator.moviesapp.screens.DetailsScreen
 import com.reanimator.moviesapp.screens.MainScreen
 import com.reanimator.moviesapp.screens.SplashScreen
 import com.reanimator.moviesapp.utils.Constants
@@ -15,19 +18,19 @@ sealed class Screens(val route: String) {
 }
 
 @Composable
-fun SetupNavHost(navController: NavHostController) {
+fun SetupNavHost(navController: NavHostController, viewModel: MainViewModel) {
     NavHost(
         navController = navController,
         startDestination = Screens.Splash.route
     ) {
         composable(route = Screens.Splash.route) {
-            SplashScreen(navController = navController)
+            SplashScreen(navController = navController, viewModel = viewModel)
         }
         composable(route = Screens.Main.route) {
-            MainScreen()
+            MainScreen(navController = navController, viewModel = viewModel)
         }
-        composable(route = Screens.Details.route) {
-
+        composable(route = Screens.Details.route + "/{Id}") { backStackEntry ->
+            DetailsScreen(navController = navController, viewModel = viewModel, itemId = backStackEntry.arguments?.getString("Id")?: "1")
         }
     }
 }
