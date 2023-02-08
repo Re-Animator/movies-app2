@@ -56,7 +56,7 @@ fun Splash(alpha: Float) {
 
 @Preview(showBackground = true)
 @Composable
-fun prevSplash() {
+fun PreviewSplash() {
     MoviesAppTheme {
         Splash(1f)
     }
